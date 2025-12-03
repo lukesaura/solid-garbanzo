@@ -1,0 +1,156 @@
+/* app/globals.css
+   Single-site font: JetBrains Mono provided via next/font in app/layout.jsx
+   Clean pastel theme, glassmorphism touches, and utility tweaks.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colors (these mirror your Palette B nicely) */
+:root{
+  --rose-50: #F9EEF0;
+  --rose-100: #F5E2E5;
+  --rose-300: #E8AEB7;
+  --rose-500: #E08FA0;
+
+  --powder-50: #F6FBFF;
+  --powder-100: #EAF7FF;
+  --powder-300: #A8DADC;
+  --powder-500: #7FC6D1;
+
+  --warmgray-50: #FBFAF8;
+  --warmgray-100: #F1F0EB;
+  --warmgray-300: #D8D6D1;
+  --warmgray-700: #62605D;
+}
+
+/* Primary font alias from next/font variable (in layout.jsx) */
+.font-site { font-family: var(--font-site), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace; }
+
+/* compatibility aliases used in many components */
+.font-space, .font-jbmono, .font-manrope, .font-lora, .font-biorhyme, .font-krone, .font-epilogue, .font-raleway {
+  font-family: var(--font-site), 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Page background */
+body {
+  background: radial-gradient(1200px 600px at 8% 12%, rgba(232,174,183,0.08), transparent 8%),
+              radial-gradient(1000px 500px at 92% 88%, rgba(168,218,220,0.06), transparent 8%),
+              var(--warmgray-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--warmgray-700);
+}
+
+/* Container utilities */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Hero niceties */
+.hero-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.60));
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow: 0 10px 30px rgba(19,19,19,0.03), inset 0 1px 0 rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px) saturate(120%);
+  border-radius: 18px;
+}
+
+/* Card style (used by projects/certs/experience) */
+.card {
+  background: linear-gradient(180deg, #ffffff, #ffffff);
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.04);
+  padding: 18px;
+  transition: transform .18s ease, box-shadow .18s ease;
+  box-shadow: 0 6px 18px rgba(30,30,30,0.04);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(22,22,22,0.06);
+}
+
+/* Project card emphasis */
+.project-title { font-weight: 600; color: #222; }
+.project-desc { color: #575450; line-height: 1.5; }
+
+/* Small tag style */
+.tag {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(168,218,220,0.18);
+  color: #145657;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+/* Certifications grid smaller cards */
+.cert-small { border-radius: 10px; padding: 12px; background: #fff; }
+
+/* Current work special card */
+.current-card {
+  border-radius: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(248,252,252,0.80));
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 12px 28px rgba(18,18,18,0.04);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .65rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--rose-300), var(--rose-500));
+  color: white;
+  box-shadow: 0 8px 22px rgba(224,143,160,0.16);
+}
+
+.btn-primary:hover { transform: translateY(-3px); }
+
+.btn-ghost {
+  background: rgba(255,255,255,0.6);
+  color: var(--warmgray-700);
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+}
+
+/* Responsive tweaks */
+@media (min-width: 768px) {
+  .hero-title { font-size: 48px; line-height: 1.06; }
+}
+
+@media (min-width: 1024px) {
+  .hero-title { font-size: 64px; }
+}
+
+/* Accessibility helpers */
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Minor visual tweaks for monospace large headers */
+.h1-mono {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
