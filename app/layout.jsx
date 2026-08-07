@@ -1,23 +1,52 @@
 // app/layout.jsx
 import './globals.css';
-import { JetBrains_Mono } from 'next/font/google';
+import { Playfair_Display, PT_Serif, Pirata_One, Special_Elite } from 'next/font/google';
 
-const jbmono = JetBrains_Mono({
+// Bold serif for headlines & decks
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['100','200','300','400','500','600','700'],
-  variable: '--font-site',
+  weight: ['400', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-headline',
+  display: 'swap'
+});
+
+// Readable serif for body copy
+const ptserif = PT_Serif({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-body',
+  display: 'swap'
+});
+
+// Blackletter for the masthead nameplate
+const pirata = Pirata_One({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-masthead',
+  display: 'swap'
+});
+
+// Typewriter accent for tags / labels
+const specialElite = Special_Elite({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-mono-news',
   display: 'swap'
 });
 
 export const metadata = {
-  title: 'Shrinikheathan Arunkumar — Portfolio',
-  description: 'Portfolio — Embedded Systems & Fullstack projects'
+  title: 'The Times of Shrinikheathan — Shrinikheathan Arunkumar',
+  description: 'Portfolio Edition — Embedded Systems, Automotive & IoT engineering, reported first-hand.'
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${jbmono.variable} font-site bg-warmgray-50 text-warmgray-900`}>
+      <body
+        className={`${playfair.variable} ${ptserif.variable} ${pirata.variable} ${specialElite.variable}`}
+      >
         {children}
       </body>
     </html>

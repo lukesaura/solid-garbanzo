@@ -7,35 +7,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        rose: {
-          50: '#F9EEF0',
-          100: '#F5E2E5',
-          300: '#E8AEB7',
-          500: '#E08FA0'
-        },
-        powder: {
-          50: '#F6FBFF',
-          100: '#EAF7FF',
-          300: '#A8DADC',
-          500: '#7FC6D1'
-        },
-        warmgray: {
-          50: '#FBFAF8',
-          100: '#F1F0EB',
-          300: '#D8D6D1'
-        }
+        // Newsprint palette
+        ink: '#1a1712',        // near-black printing ink
+        ink2: '#3a352c',       // softer ink for secondary text
+        newsprint: '#f5f1e6',  // paper
+        newsprint2: '#efe9d8',  // slightly darker paper
+        desk: '#e4ddc9',       // the surface the paper sits on
+        oxblood: '#8a1c1c',    // restrained spot color for kickers
+        rule: '#1a1712'        // rule/border color
       },
       fontFamily: {
-        space: ['"Space Grotesque"', 'ui-sans-serif', 'system-ui'],
-        krone: ['"Krone One"', 'ui-sans-serif'],
-        sora: ['"Sora"', 'ui-sans-serif'],
-        jbmono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-        epilogue: ['"Epilogue"', 'ui-sans-serif'],
-        manrope: ['"Manrope"', 'ui-sans-serif'],
-        lora: ['"Lora"', 'serif'],
-        biorhyme: ['"Biorhyme"', 'serif'],
-        cormorant: ['"Cormorant Garamond"', 'serif'],
-        raleway: ['"Raleway"', 'ui-sans-serif']
+        masthead: ['var(--font-masthead)', 'Pirata One', 'serif'],
+        headline: ['var(--font-headline)', 'Georgia', 'Times New Roman', 'serif'],
+        body: ['var(--font-body)', 'Georgia', 'Times New Roman', 'serif'],
+        news: ['var(--font-mono-news)', 'Courier New', 'monospace']
       }
     }
   },

@@ -4,38 +4,57 @@ import { motion } from 'framer-motion';
 
 const projects = [
   {
+    title: 'Pixolish AI Camera Streaming Studio',
+    date: '2026 · Pixolish Systems',
+    desc: 'Co-developed a unified, license-based AI camera streaming platform — camera ISP configuration, automated calibration & sensor alignment, multi-camera management, low-latency live streaming, and an AI-ready image pipeline for ADAS, autonomous driving, robotics, and industrial automation.',
+    tags: ['C++', 'Qt', 'ISP', 'ADAS', 'Computer Vision'],
+    repo: 'https://github.com/lukesaura/CameraCalibrationISP'
+  },
+  {
+    title: 'Embedded Face Recognition for Automotive Access Control',
+    date: '2026 · Spark Minda',
+    desc: 'A fully offline face recognition pipeline on Raspberry Pi 4 — video-to-dataset extraction, FaceNet 512-d embedding generation, and real-time cosine-similarity matching at ~5 FPS. Built after the Arduino Nicla Vision proved too constrained for a multi-stage vision pipeline.',
+    tags: ['Raspberry Pi', 'FaceNet', 'OpenCV', 'Python', 'Embedded'],
+    repo: 'https://github.com/lukesaura/embedded-face-recognition'
+  },
+  {
+    title: 'TPMS — Tyre Pressure Monitoring & Fault Diagnosis App',
+    date: '2026 · Spark Minda',
+    desc: 'A Tyre Pressure Monitoring app built as a proof of concept for a mechanic diagnostic tool — letting workshop technicians of an undisclosed motorcycle manufacturer read and diagnose fault codes without needing a CAN interface.',
+    tags: ['Mobile', 'Diagnostics', 'OBD', 'Automotive'],
+    repo: 'https://github.com/lukesaura/TPMS'
+  },
+  {
     title: 'CAN Bus – Vehicle Telemetry & ECU Simulation',
-    desc: 'Two-node CAN bus system using Arduino + MCP2515 modules and a Python dashboard rendering a live virtual instrument cluster.',
-    tags: ['Arduino','CAN','Python','Pygame'],
+    date: 'November 2025',
+    desc: 'Two-node CAN bus system on Arduino Uno + MCP2515 simulating a full vehicle ECU — throttle, braking, indicators, headlights, fuel modelling and real-time physics — paired with a Python (Pygame) dashboard rendering a live virtual instrument cluster.',
+    tags: ['Arduino', 'CAN 2.0', 'Python', 'Pygame'],
     repo: 'https://github.com/lukesaura/special-engine'
   },
   {
     title: 'Campus Sentry — Real-Time Violation & Flood Monitoring',
-    desc: 'Full-stack dashboard + mobile app with Firebase and an ML pipeline for detection and approval workflows.',
-    tags: ['React','Firebase','ML','Expo'],
+    date: 'October 2025',
+    desc: 'Full-stack municipal monitoring platform: a React + Tailwind dashboard and a cross-platform Expo app on Firebase Auth, Firestore and real-time listeners, with an external ML pipeline feeding parking-violation and water-logging detections into instant approval workflows.',
+    tags: ['React', 'Firebase', 'ML', 'Expo'],
     repo: 'https://github.com/lukesaura/congenial-octo-invention2'
   },
   {
-    title: '5G Core Network Simulation (Open5GS & UERANSIM)',
-    desc: 'Containerized 5G core emulation with Open5GS and UERANSIM for registration & attach flow testing.',
-    tags: ['Open5GS','Docker','Telecom'],
-    repo: 'https://github.com/yourusername/5g-sim'
-  },
-  {
     title: 'Real-Time Indoor Localization (Wearable + ML)',
-    desc: 'BLE wearables and ML models (KNN, SVM, XGBoost) to improve indoor positioning accuracy.',
-    tags: ['BLE','ML','XGBoost'],
-    repo: 'https://github.com/yourusername/indoor-localization'
+    date: 'March 2025',
+    desc: 'A BLE-based indoor localization system inspired by IEEE research, using wearables and machine learning. Boosted positioning accuracy with KNN, SVM, LightGBM, XGBoost and Random Forest for assistive applications.',
+    tags: ['BLE', 'ML', 'XGBoost', 'LightGBM'],
+    repo: 'https://github.com/lukesaura'
   },
   {
     title: 'IoT Water Quality Monitoring (ESP32 + AWS)',
-    desc: 'ESP32 with pH/turbidity sensors sending data to AWS IoT Core and visualized via a web dashboard.',
-    tags: ['ESP32','AWS','IoT'],
+    date: 'November 2024',
+    desc: 'An ESP32 prototype with pH, turbidity and salinity sensors streaming processed data to AWS via API, IoT Core, DynamoDB and Lambda, with a Firebase-hosted web app visualising real-time water-quality metrics.',
+    tags: ['ESP32', 'AWS', 'IoT', 'Firebase'],
     repo: 'https://github.com/lukesaura/WaterQualityApplication'
   }
 ];
 
-function ProjectCard({ p, i }) {
+function ProjectCell({ p, i }) {
   return (
     <motion.a
       href={p.repo}
@@ -44,35 +63,46 @@ function ProjectCard({ p, i }) {
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: i * 0.06 }}
-      className="card group block no-underline"
+      transition={{ duration: 0.5, delay: i * 0.05 }}
+      className="cell"
+      style={{ display: 'block', textDecoration: 'none', breakInside: 'avoid' }}
     >
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="project-title font-site text-lg">{p.title}</div>
-          <p className="project-desc mt-2 text-sm">{p.desc}</p>
-        </div>
-        <div className="text-xs text-warmgray-700">{/* reserved for date / badge if needed */}</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'baseline' }}>
+        <span className="kicker" style={{ color: 'var(--ink-2)' }}>
+          Report No. {String(projects.length - i).padStart(2, '0')}
+        </span>
+        <span className="byline">{p.date}</span>
       </div>
-
-      <div className="mt-4 flex flex-wrap gap-2">
-        {p.tags.map((t, idx) => (
-          <span key={idx} className="tag">{t}</span>
-        ))}
+      <h3 className="article-title" style={{ margin: '4px 0 8px' }}>{p.title}</h3>
+      <p className="prose" style={{ fontSize: '15px' }}>{p.desc}</p>
+      <div style={{ marginTop: '12px' }} className="filed">
+        <b>Filed under:</b> {p.tags.join(' · ')}
       </div>
-
-      <div className="mt-4 text-rose-300 font-site text-sm underline">Open repo →</div>
+      <div style={{ marginTop: '12px' }}>
+        <span className="read-more">Continue reading on GitHub →</span>
+      </div>
     </motion.a>
   );
 }
 
 export default function Projects() {
   return (
-    <section id="projects" className="mt-16 container">
-      <h2 className="text-3xl font-site mb-6">Projects</h2>
+    <section id="projects" className="section-space">
+      <div className="section-head">
+        <span className="section-label">The Projects Desk</span>
+      </div>
+      <hr className="rule-thick" style={{ marginBottom: '4px' }} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((p, i) => <ProjectCard p={p} i={i} key={i} />)}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '0 40px'
+        }}
+      >
+        {projects.map((p, i) => (
+          <ProjectCell p={p} i={i} key={i} />
+        ))}
       </div>
     </section>
   );
