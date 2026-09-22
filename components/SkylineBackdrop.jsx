@@ -2,6 +2,7 @@
 // A single continuous line-art skyline blending landmarks of
 // Chennai (temple gopuram, lighthouse, Napier Bridge),
 // Muscat (Sultan Qaboos Grand Mosque, Mutrah Fort, Al Hajar mountains),
+// Paris (Eiffel Tower),
 // and Dubai (Burj Al Arab, Burj Khalifa, towers).
 export default function SkylineBackdrop() {
   const S = {
@@ -80,6 +81,68 @@ export default function SkylineBackdrop() {
           <path d="M706,206 L706,191 L713,191 L713,198 L720,198 L720,191 L727,191 L727,198 L734,198 L734,191 L741,191 L741,206" />
           <path d="M735,191 L735,176 L746,176 L746,191" />
           <path d="M735,176 L735,171 L739,171 L739,176 L742,176 L742,171 L746,171 L746,176" />
+        </g>
+
+        {/* ===== PARIS ===== */}
+        <g {...S}>
+          {/* Eiffel Tower — four curved legs */}
+          {/* left leg */}
+          <path d="M772,222 C774,210 780,192 784,186" fill="none" />
+          {/* right leg */}
+          <path d="M832,222 C830,210 824,192 820,186" fill="none" />
+          {/* inner left leg */}
+          <path d="M780,222 C782,212 785,196 787,186" fill="none" />
+          {/* inner right leg */}
+          <path d="M824,222 C822,212 819,196 817,186" fill="none" />
+
+          {/* 1st floor platform */}
+          <line x1="782" y1="186" x2="822" y2="186" />
+          <line x1="783" y1="183" x2="821" y2="183" />
+
+          {/* iconic arch between the legs */}
+          <path d="M780,222 Q802,200 824,222" fill="none" />
+
+          {/* cross-bracing between legs (below 1st floor) */}
+          <line x1="777" y1="204" x2="827" y2="204" />
+          <path d="M779,212 L786,196" fill="none" />
+          <path d="M825,212 L818,196" fill="none" />
+
+          {/* 1st → 2nd floor tapered section (left & right edges) */}
+          <path d="M787,183 L793,155" fill="none" />
+          <path d="M817,183 L811,155" fill="none" />
+
+          {/* 2nd floor platform */}
+          <line x1="791" y1="155" x2="813" y2="155" />
+          <line x1="792" y1="152" x2="812" y2="152" />
+
+          {/* cross-brace between 1st and 2nd */}
+          <line x1="790" y1="168" x2="814" y2="168" />
+
+          {/* 2nd → 3rd floor tapered section */}
+          <path d="M795,152 L799,120" fill="none" />
+          <path d="M809,152 L805,120" fill="none" />
+
+          {/* small observation balcony (top floor) */}
+          <line x1="797" y1="120" x2="807" y2="120" />
+          <line x1="798" y1="118" x2="806" y2="118" />
+
+          {/* cross-brace between 2nd and top */}
+          <line x1="797" y1="136" x2="807" y2="136" />
+
+          {/* upper pinnacle narrowing to antenna */}
+          <path d="M800,118 L801,100" fill="none" />
+          <path d="M804,118 L803,100" fill="none" />
+
+          {/* antenna spire */}
+          <line x1="802" y1="100" x2="802" y2="68" />
+          <line x1="800" y1="82" x2="804" y2="82" />
+          <line x1="801" y1="74" x2="803" y2="74" />
+
+          {/* horizontal lattice lines on the body */}
+          <line x1="789" y1="190" x2="815" y2="190" />
+          <line x1="794" y1="162" x2="810" y2="162" />
+          <line x1="797" y1="143" x2="807" y2="143" />
+          <line x1="799" y1="128" x2="805" y2="128" />
         </g>
 
         {/* ===== DUBAI ===== */}

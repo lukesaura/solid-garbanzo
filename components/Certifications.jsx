@@ -29,12 +29,6 @@ const groups = [
     ]
   },
   {
-    heading: 'Publications',
-    items: [
-      { title: 'Research paper', date: '2026', doc: 'https://ieeexplore.ieee.org/document/11584776' }
-    ]
-  },
-  {
     heading: 'Examinations',
     items: [
       { title: 'GRE — Graduate Record Examination', meta: 'Verbal 151 · Quant 159 · AWA 3.5', date: 'May 18, 2026', doc: null },

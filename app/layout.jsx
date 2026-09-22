@@ -1,6 +1,8 @@
 // app/layout.jsx
 import './globals.css';
 import { Playfair_Display, PT_Serif, Pirata_One, Special_Elite } from 'next/font/google';
+import PaperSounds from '../components/PaperSounds';
+import SparkleTrail from '../components/SparkleTrail';
 
 // Bold serif for headlines & decks
 const playfair = Playfair_Display({
@@ -47,6 +49,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${playfair.variable} ${ptserif.variable} ${pirata.variable} ${specialElite.variable}`}
       >
+        <PaperSounds />
+        <SparkleTrail />
         {children}
       </body>
     </html>

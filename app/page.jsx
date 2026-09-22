@@ -2,6 +2,7 @@ import Hero from '../components/Hero';
 import CurrentWork from '../components/CurrentWork';
 import Experience from '../components/Experience';
 import Projects from '../components/Projects';
+import Academics from '../components/Academics';
 import Certifications from '../components/Certifications';
 import Footer from '../components/Footer';
 
@@ -14,6 +15,7 @@ export default function Page() {
           <CurrentWork />
           <Experience />
           <Projects />
+          <Academics />
           <Certifications />
           <Footer />
         </div>

@@ -100,136 +100,44 @@ function Ticker() {
   );
 }
 
-function MovingPhoto() {
-  return (
-    <figure className="moving-photo">
-      <div className="photo-frame">
-        <svg viewBox="0 0 800 320" preserveAspectRatio="xMidYMid slice" role="img"
-             aria-label="A microchip with electricity pulsing through circuit traces">
-          <defs>
-            <linearGradient id="pulse-r" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="-0.3;1.1" dur="2s" repeatCount="indefinite" /></stop>
-              <stop offset="0.15" stopColor="#000" stopOpacity="1"><animate attributeName="offset" values="-0.15;1.25" dur="2s" repeatCount="indefinite" /></stop>
-              <stop offset="0.3" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="0;1.4" dur="2s" repeatCount="indefinite" /></stop>
-            </linearGradient>
-            <linearGradient id="pulse-l" x1="1" y1="0" x2="0" y2="0">
-              <stop offset="0" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="-0.3;1.1" dur="2.4s" repeatCount="indefinite" /></stop>
-              <stop offset="0.15" stopColor="#000" stopOpacity="1"><animate attributeName="offset" values="-0.15;1.25" dur="2.4s" repeatCount="indefinite" /></stop>
-              <stop offset="0.3" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="0;1.4" dur="2.4s" repeatCount="indefinite" /></stop>
-            </linearGradient>
-            <linearGradient id="pulse-d" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="-0.3;1.1" dur="1.8s" repeatCount="indefinite" /></stop>
-              <stop offset="0.15" stopColor="#000" stopOpacity="1"><animate attributeName="offset" values="-0.15;1.25" dur="1.8s" repeatCount="indefinite" /></stop>
-              <stop offset="0.3" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="0;1.4" dur="1.8s" repeatCount="indefinite" /></stop>
-            </linearGradient>
-            <linearGradient id="pulse-u" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="-0.3;1.1" dur="2.2s" repeatCount="indefinite" /></stop>
-              <stop offset="0.15" stopColor="#000" stopOpacity="1"><animate attributeName="offset" values="-0.15;1.25" dur="2.2s" repeatCount="indefinite" /></stop>
-              <stop offset="0.3" stopColor="#000" stopOpacity="0"><animate attributeName="offset" values="0;1.4" dur="2.2s" repeatCount="indefinite" /></stop>
-            </linearGradient>
-          </defs>
 
-          {/* Background grid */}
-          <g stroke="rgba(0,0,0,0.06)" strokeWidth="0.5">
-            {Array.from({ length: 41 }).map((_, i) => (
-              <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="320" />
-            ))}
-            {Array.from({ length: 17 }).map((_, i) => (
-              <line key={`h${i}`} x1="0" y1={i * 20} x2="800" y2={i * 20} />
-            ))}
-          </g>
-
-          {/* Central chip body */}
-          <rect x="310" y="100" width="180" height="120" fill="#000" rx="4" />
-          <rect x="318" y="108" width="164" height="104" fill="none" stroke="#fff" strokeWidth="1" rx="2" />
-          <circle cx="334" cy="124" r="6" fill="none" stroke="#fff" strokeWidth="1" />
-          <text x="400" y="155" textAnchor="middle" fill="#fff" fontFamily="var(--font-mono-news), monospace" fontSize="11" letterSpacing="2">EMBEDDED</text>
-          <text x="400" y="172" textAnchor="middle" fill="#fff" fontFamily="var(--font-mono-news), monospace" fontSize="11" letterSpacing="2">AI · IoT</text>
-          <text x="400" y="196" textAnchor="middle" fill="#fff" fontFamily="var(--font-mono-news), monospace" fontSize="9" letterSpacing="1">SA-2026</text>
-
-          {/* Chip pins — top */}
-          {[340, 360, 380, 400, 420, 440, 460].map((x) => (
-            <rect key={`pt${x}`} x={x - 4} y="88" width="8" height="14" fill="#000" />
-          ))}
-          {/* Chip pins — bottom */}
-          {[340, 360, 380, 400, 420, 440, 460].map((x) => (
-            <rect key={`pb${x}`} x={x - 4} y="218" width="8" height="14" fill="#000" />
-          ))}
-          {/* Chip pins — left */}
-          {[120, 140, 160, 180, 200].map((y) => (
-            <rect key={`pl${y}`} x="298" y={y - 4} width="14" height="8" fill="#000" />
-          ))}
-          {/* Chip pins — right */}
-          {[120, 140, 160, 180, 200].map((y) => (
-            <rect key={`pr${y}`} x={488} y={y - 4} width="14" height="8" fill="#000" />
-          ))}
-
-          {/* Circuit traces — right side with pulse */}
-          <g fill="none" strokeWidth="2">
-            <path d="M502,120 H580 V60 H700" stroke="rgba(0,0,0,0.15)" />
-            <path d="M502,120 H580 V60 H700" stroke="url(#pulse-r)" />
-            <path d="M502,140 H620 V140 H740" stroke="rgba(0,0,0,0.15)" />
-            <path d="M502,140 H620 V140 H740" stroke="url(#pulse-r)" />
-            <path d="M502,160 H560 V220 H680" stroke="rgba(0,0,0,0.15)" />
-            <path d="M502,160 H560 V220 H680" stroke="url(#pulse-r)" />
-            <path d="M502,180 H600 V280 H760" stroke="rgba(0,0,0,0.15)" />
-            <path d="M502,180 H600 V280 H760" stroke="url(#pulse-r)" />
-            <path d="M502,200 H540 V260 H700" stroke="rgba(0,0,0,0.15)" />
-            <path d="M502,200 H540 V260 H700" stroke="url(#pulse-r)" />
-          </g>
-
-          {/* Circuit traces — left side with pulse */}
-          <g fill="none" strokeWidth="2">
-            <path d="M298,120 H220 V40 H60" stroke="rgba(0,0,0,0.15)" />
-            <path d="M298,120 H220 V40 H60" stroke="url(#pulse-l)" />
-            <path d="M298,140 H180 V140 H40" stroke="rgba(0,0,0,0.15)" />
-            <path d="M298,140 H180 V140 H40" stroke="url(#pulse-l)" />
-            <path d="M298,160 H240 V80 H100" stroke="rgba(0,0,0,0.15)" />
-            <path d="M298,160 H240 V80 H100" stroke="url(#pulse-l)" />
-            <path d="M298,180 H200 V240 H80" stroke="rgba(0,0,0,0.15)" />
-            <path d="M298,180 H200 V240 H80" stroke="url(#pulse-l)" />
-            <path d="M298,200 H260 V280 H120" stroke="rgba(0,0,0,0.15)" />
-            <path d="M298,200 H260 V280 H120" stroke="url(#pulse-l)" />
-          </g>
-
-          {/* Circuit traces — top with pulse */}
-          <g fill="none" strokeWidth="2">
-            <path d="M340,88 V50 H200" stroke="rgba(0,0,0,0.15)" />
-            <path d="M340,88 V50 H200" stroke="url(#pulse-u)" />
-            <path d="M380,88 V30 H140" stroke="rgba(0,0,0,0.15)" />
-            <path d="M380,88 V30 H140" stroke="url(#pulse-u)" />
-            <path d="M420,88 V40 H560" stroke="rgba(0,0,0,0.15)" />
-            <path d="M420,88 V40 H560" stroke="url(#pulse-u)" />
-            <path d="M460,88 V20 H640" stroke="rgba(0,0,0,0.15)" />
-            <path d="M460,88 V20 H640" stroke="url(#pulse-u)" />
-          </g>
-
-          {/* Circuit traces — bottom with pulse */}
-          <g fill="none" strokeWidth="2">
-            <path d="M340,232 V270 H180" stroke="rgba(0,0,0,0.15)" />
-            <path d="M340,232 V270 H180" stroke="url(#pulse-d)" />
-            <path d="M380,232 V290 H260" stroke="rgba(0,0,0,0.15)" />
-            <path d="M380,232 V290 H260" stroke="url(#pulse-d)" />
-            <path d="M420,232 V260 H540" stroke="rgba(0,0,0,0.15)" />
-            <path d="M420,232 V260 H540" stroke="url(#pulse-d)" />
-            <path d="M460,232 V300 H620" stroke="rgba(0,0,0,0.15)" />
-            <path d="M460,232 V300 H620" stroke="url(#pulse-d)" />
-          </g>
-
-          {/* Trace endpoints — small pads */}
-          {[[700,60],[740,140],[680,220],[760,280],[700,260],
-            [60,40],[40,140],[100,80],[80,240],[120,280],
-            [200,50],[140,30],[560,40],[640,20],
-            [180,270],[260,290],[540,260],[620,300]].map(([cx,cy], i) => (
-            <circle key={`pad${i}`} cx={cx} cy={cy} r="4" fill="#000" />
-          ))}
-        </svg>
-      </div>
-    </figure>
-  );
-}
+const pokeReactions = ['Ow.', 'Stop that.', 'Urk.', 'No.', 'Hey!', 'Quit it.', 'Oi!', 'Rude.', 'Bruh.', 'Not cool.', 'Again?', 'Why.', 'Excuse me?', 'Seriously?', '...really?'];
 
 export default function Hero() {
+  const [poke, setPoke] = useState(null);
+  const [pokeIndex, setPokeIndex] = useState(0);
+
+  function playPokeSound(index) {
+    try {
+      if (!window.__pokeAudio) {
+        window.__pokeAudio = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const ctx = window.__pokeAudio;
+      if (ctx.state === 'suspended') ctx.resume();
+      const t = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      const sounds = [
+        () => { osc.type = 'sine'; osc.frequency.setValueAtTime(800, t); osc.frequency.exponentialRampToValueAtTime(200, t + 0.15); gain.gain.setValueAtTime(0.12, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15); osc.start(t); osc.stop(t + 0.15); },
+        () => { osc.type = 'square'; osc.frequency.setValueAtTime(300, t); osc.frequency.exponentialRampToValueAtTime(100, t + 0.12); gain.gain.setValueAtTime(0.06, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12); osc.start(t); osc.stop(t + 0.12); },
+        () => { osc.type = 'sine'; osc.frequency.setValueAtTime(1200, t); osc.frequency.exponentialRampToValueAtTime(1600, t + 0.08); osc.frequency.exponentialRampToValueAtTime(400, t + 0.2); gain.gain.setValueAtTime(0.08, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2); osc.start(t); osc.stop(t + 0.2); },
+        () => { osc.type = 'triangle'; osc.frequency.setValueAtTime(600, t); osc.frequency.setValueAtTime(700, t + 0.05); osc.frequency.setValueAtTime(500, t + 0.1); gain.gain.setValueAtTime(0.1, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18); osc.start(t); osc.stop(t + 0.18); },
+        () => { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, t); osc.frequency.exponentialRampToValueAtTime(80, t + 0.25); gain.gain.setValueAtTime(0.04, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25); osc.start(t); osc.stop(t + 0.25); },
+      ];
+      sounds[index % sounds.length]();
+    } catch {}
+  }
+
+  function handlePoke() {
+    const msg = pokeReactions[pokeIndex % pokeReactions.length];
+    playPokeSound(pokeIndex);
+    setPokeIndex(prev => prev + 1);
+    setPoke({ msg, id: Date.now() });
+    setTimeout(() => setPoke(null), 1200);
+  }
+
   // Render the viewer's own local date, client-side, to avoid hydration mismatch.
   const [today, setToday] = useState('');
   useEffect(() => {
@@ -268,7 +176,7 @@ export default function Hero() {
         </motion.h1>
       </div>
       <p className="motto">
-        The most passion you&rsquo;ll ever see in an Automotive Embedded AI&nbsp;Engineer.
+        The most passion you&rsquo;ll ever see in an&nbsp;Engineer.
       </p>
 
       <hr className="rule-double" />
@@ -307,8 +215,6 @@ export default function Hero() {
           </div>
           <hr className="rule-thin" style={{ marginBottom: '16px' }} />
 
-          <MovingPhoto />
-
           <div className="prose cols-2 dropcap" style={{ marginTop: '16px', fontSize: '19px' }}>
             <p>
               Thank you for making it here. The machines I grew up admiring &mdash; the engineering
@@ -326,14 +232,14 @@ export default function Hero() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '18px' }}>
+          <div style={{ marginTop: '24px' }}>
             <a
               href="/Shrinikheathan-Arunkumar-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="news-btn"
+              className="resume-cta"
             >
-              The Résumé, in Full
+              ★ The Résumé, in Full ★
             </a>
           </div>
         </motion.article>
@@ -347,10 +253,43 @@ export default function Hero() {
           className="frontpage-aside"
         >
           {/* Portrait */}
-          <figure className="portrait" style={{ marginBottom: '18px' }}>
+          <figure className="portrait" style={{ marginBottom: '18px', position: 'relative', overflow: 'visible' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/portrait.jpg" alt="Shrinikheathan Arunkumar" />
-            <figcaption>Shrinikheathan Arunkumar, reporting from the southeast</figcaption>
+            <motion.img
+              src="/images/portrait.jpg"
+              alt="Shrinikheathan Arunkumar"
+              onClick={handlePoke}
+              animate={poke ? { x: [0, -6, 5, -3, 2, 0], scale: [1, 0.97, 1.01, 0.99, 1] } : {}}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              style={{ cursor: 'inherit', borderRadius: '12px' }}
+            />
+            {poke && (
+              <motion.span
+                key={poke.id}
+                initial={{ opacity: 0, y: 8, scale: 0.5 }}
+                animate={{ opacity: 1, y: -8, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 12 }}
+                style={{
+                  position: 'absolute',
+                  top: '8px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  fontFamily: 'var(--font-headline), serif',
+                  fontWeight: 900,
+                  fontStyle: 'italic',
+                  fontSize: '22px',
+                  color: 'var(--ink)',
+                  whiteSpace: 'nowrap',
+                  zIndex: 10,
+                  pointerEvents: 'none',
+                  textShadow: '0 0 8px var(--paper), 0 0 16px var(--paper)',
+                }}
+              >
+                {poke.msg}
+              </motion.span>
+            )}
+            <figcaption>Shrinikheathan Arunkumar</figcaption>
+            <figcaption style={{ fontSize: '10px', marginTop: '2px' }}>Currently based in Paris, France.</figcaption>
           </figure>
 
           <div className="box-hair" style={{ marginBottom: '18px' }}>
@@ -359,7 +298,9 @@ export default function Hero() {
               <li><a href="#current">Trending Now</a><span className="pg">p. 1</span></li>
               <li><a href="#experience">Career Trajectory</a><span className="pg">p. 2</span></li>
               <li><a href="#projects">The Projects Desk</a><span className="pg">p. 3</span></li>
-              <li><a href="#certifications">On the Record</a><span className="pg">p. 4</span></li>
+              <li><a href="#academics">The Academics Desk</a><span className="pg">p. 4</span></li>
+              <li><a href="#certifications">On the Record</a><span className="pg">p. 5</span></li>
+              <li><a href="#connect">Connect</a><span className="pg">p. 6</span></li>
             </ul>
           </div>
 

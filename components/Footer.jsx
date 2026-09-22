@@ -3,7 +3,7 @@
 
 export default function Footer() {
   return (
-    <footer style={{ marginTop: '40px' }}>
+    <footer id="connect" style={{ marginTop: '40px' }}>
       <hr className="rule-thick" />
       <div className="topbar" style={{ justifyContent: 'center', gap: '10px' }}>
         <span>★</span>
@@ -38,6 +38,20 @@ export default function Footer() {
               className="inline-link"
             >
               github.com/lukesaura
+            </a>
+          </p>
+        </div>
+        <div>
+          <div className="section-sub" style={{ marginBottom: '6px' }}>The Wire</div>
+          <p className="prose" style={{ fontSize: '14px' }}>
+            Professional network:{' '}
+            <a
+              href="https://www.linkedin.com/in/shrinikheathan/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-link"
+            >
+              linkedin.com/in/shrinikheathan
             </a>
           </p>
         </div>
