@@ -58,14 +58,21 @@ function wrapTextNodes(root) {
     if (!text) return;
 
     const frag = document.createDocumentFragment();
-    for (const char of text) {
-      if (char === ' ' || char === '\n' || char === '\t') {
-        frag.appendChild(document.createTextNode(char));
+    const words = text.split(/(\s+)/);
+    for (const segment of words) {
+      if (/^\s+$/.test(segment)) {
+        frag.appendChild(document.createTextNode(segment));
       } else {
-        const span = document.createElement('span');
-        span.className = 'sparkle-char';
-        span.textContent = char;
-        frag.appendChild(span);
+        const wordWrap = document.createElement('span');
+        wordWrap.style.whiteSpace = 'nowrap';
+        wordWrap.style.display = 'inline';
+        for (const char of segment) {
+          const span = document.createElement('span');
+          span.className = 'sparkle-char';
+          span.textContent = char;
+          wordWrap.appendChild(span);
+        }
+        frag.appendChild(wordWrap);
       }
     }
     textNode.parentNode.replaceChild(frag, textNode);
