@@ -66,7 +66,10 @@ function wrapTextNodes(root) {
         const wordWrap = document.createElement('span');
         wordWrap.style.whiteSpace = 'nowrap';
         wordWrap.style.display = 'inline';
-        for (const char of segment) {
+        const graphemes = typeof Intl !== 'undefined' && Intl.Segmenter
+          ? [...new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(segment)].map(s => s.segment)
+          : [...segment];
+        for (const char of graphemes) {
           const span = document.createElement('span');
           span.className = 'sparkle-char';
           span.textContent = char;
@@ -77,10 +80,12 @@ function wrapTextNodes(root) {
     }
     textNode.parentNode.replaceChild(frag, textNode);
   });
+
+  return nodes.length;
 }
 
 export default function SparkleTrail() {
-  const wrappedRef = useRef(new Set());
+  const wrappingRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -100,20 +105,27 @@ export default function SparkleTrail() {
     }
 
     function wrapPage() {
-      const sections = document.querySelectorAll(
-        '.wrap, .sheet, main, header, footer, section, article'
-      );
-      sections.forEach(section => {
-        if (wrappedRef.current.has(section)) return;
-        wrappedRef.current.add(section);
-        wrapTextNodes(section);
-      });
+      if (wrappingRef.current) return;
+      wrappingRef.current = true;
+      try {
+        const sections = document.querySelectorAll(
+          '.wrap, .sheet, main, header, footer, section, article'
+        );
+        sections.forEach(section => {
+          wrapTextNodes(section);
+        });
+      } finally {
+        wrappingRef.current = false;
+      }
     }
 
     const initTimer = setTimeout(wrapPage, 500);
 
+    let debounceTimer = null;
     const observer = new MutationObserver(() => {
-      setTimeout(wrapPage, 200);
+      if (wrappingRef.current) return;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(wrapPage, 200);
     });
     observer.observe(document.body, { childList: true, subtree: true });
 
@@ -121,6 +133,7 @@ export default function SparkleTrail() {
 
     return () => {
       clearTimeout(initTimer);
+      clearTimeout(debounceTimer);
       observer.disconnect();
       document.removeEventListener('mousemove', onMouseMove);
     };

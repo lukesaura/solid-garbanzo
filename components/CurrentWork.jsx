@@ -1,45 +1,36 @@
 // components/CurrentWork.jsx
 'use client';
-import { motion, useMotionValue, useTransform, useAnimation, animate } from 'framer-motion';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '../lib/LanguageContext';
 
 const cards = [
   {
-    kicker: '◆ Paris, France · Since Sep 2026',
-    headline: 'Pursuing Masters at ISEP, Paris',
-    byline: 'IEMDP — Embedded Systems',
+    kickerKey: 'current.card0.kicker',
+    headlineKey: 'current.card0.headline',
+    bylineKey: 'current.card0.byline',
     projects: [
-      {
-        name: 'International Embedded Master Degree Program',
-        desc: 'Currently pursuing a Master\'s degree in Embedded Systems at ISEP (Institut Supérieur d\'Électronique de Paris), specializing in the IEMDP track covering hardware-software co-design, real-time systems, and IoT architectures.',
-        tags: ['Embedded Systems', 'IEMDP', 'ISEP', 'Masters'],
-      }
+      { nameKey: 'current.card0.proj0.name', descKey: 'current.card0.proj0.desc', tags: ['Embedded Systems', 'IEMDP', 'ISEP', 'Masters'] },
     ]
   },
   {
-    kicker: '◆ On-site, Bengaluru · Since Feb 2026',
-    headline: 'Currently Interning at Spark Minda',
-    byline: 'SDE Intern · Spark Minda Limited',
+    kickerKey: 'current.card1.kicker',
+    headlineKey: 'current.card1.headline',
+    bylineKey: 'current.card1.byline',
     projects: [
-      {
-        name: 'TPMS — Tyre Pressure Monitoring & Fault Diagnosis App',
-        desc: 'Built a proof-of-concept mechanic diagnostic tool letting workshop technicians of an undisclosed motorcycle manufacturer read and diagnose fault codes without needing a CAN interface.',
-        tags: ['Mobile', 'Diagnostics', 'OBD', 'Automotive'],
-      },
-      {
-        name: 'Facial Biometric Unlock for Automotives',
-        desc: 'Built an end-to-end facial biometric unlock pipeline in Python with zero network dependency — OpenCV SSD (ResNet-10) detection with FaceNet 512-d embeddings, tuned to <0.1% false-accept at ~5 FPS, CPU-only, sub-2-second unlock.',
-        tags: ['Python', 'OpenCV', 'FaceNet', 'Biometrics'],
-      }
+      { nameKey: 'current.card1.proj0.name', descKey: 'current.card1.proj0.desc', tags: ['Mobile', 'Diagnostics', 'OBD', 'Automotive'] },
+      { nameKey: 'current.card1.proj1.name', descKey: 'current.card1.proj1.desc', tags: ['Python', 'OpenCV', 'FaceNet', 'Biometrics'] },
     ]
   }
 ];
 
 export default function CurrentWork() {
+  const { t } = useLanguage();
   const [active, setActive] = useState(0);
   const containerRef = useRef(null);
   const x = useMotionValue(0);
   const dragRef = useRef(null);
+  const autoRef = useRef(null);
 
   function getCardWidth() {
     if (!containerRef.current) return 500;
@@ -57,6 +48,23 @@ export default function CurrentWork() {
     });
   }
 
+  function resetAutoAdvance() {
+    clearInterval(autoRef.current);
+    autoRef.current = setInterval(() => {
+      setActive(prev => {
+        const next = (prev + 1) % cards.length;
+        const width = containerRef.current?.offsetWidth || 500;
+        animate(x, -next * width, { type: 'spring', stiffness: 300, damping: 30, mass: 0.8 });
+        return next;
+      });
+    }, 5000);
+  }
+
+  useEffect(() => {
+    resetAutoAdvance();
+    return () => clearInterval(autoRef.current);
+  }, []);
+
   function handleDragEnd(_, info) {
     const threshold = getCardWidth() * 0.2;
     const velocity = info.velocity.x;
@@ -69,12 +77,13 @@ export default function CurrentWork() {
     }
 
     snapTo(next);
+    resetAutoAdvance();
   }
 
   return (
     <section id="current" className="section-space">
       <div className="section-head">
-        <span className="section-label">Trending Now</span>
+        <span className="section-label">{t('current.label')}</span>
       </div>
       <hr className="rule-thin" style={{ marginBottom: '18px' }} />
 
@@ -97,50 +106,44 @@ export default function CurrentWork() {
           }}
           whileDrag={{ cursor: 'grabbing' }}
         >
-          {cards.map((card, ci) => {
-            const cardX = useTransform(x, (v) => {
-              const offset = v + ci * (containerRef.current?.offsetWidth || 500);
-              return offset;
-            });
-            const rotate = useTransform(cardX, [-600, 0, 600], [-1.5, 0, 1.5]);
-            const scale = useTransform(cardX, [-400, 0, 400], [0.97, 1, 0.97]);
-
-            return (
+          {cards.map((card, ci) => (
               <motion.div
                 key={ci}
                 className="breaking"
+                initial={{ opacity: 0, scale: 0.92, rotate: -1 }}
+                animate={{
+                  opacity: active === ci ? 1 : 0.5,
+                  scale: active === ci ? 1 : 0.95,
+                  rotate: active === ci ? 0 : -1,
+                }}
+                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                 style={{
                   minWidth: '100%',
                   flex: '0 0 100%',
-                  rotate,
-                  scale,
-                  transformOrigin: 'center bottom',
                 }}
               >
-                <span className="kicker">{card.kicker}</span>
+                <span className="kicker">{t(card.kickerKey)}</span>
                 <h3 className="headline" style={{ fontSize: 'clamp(24px, 4vw, 38px)', margin: '6px 0 4px' }}>
-                  {card.headline}
+                  {t(card.headlineKey)}
                 </h3>
                 <div className="byline" style={{ marginBottom: '16px' }}>
-                  {card.byline}
+                  {t(card.bylineKey)}
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
                   {card.projects.map((p, i) => (
                     <div key={i} style={{ borderTop: '2px solid var(--rule)', paddingTop: '14px' }}>
-                      <h4 className="article-title" style={{ fontSize: '18px', margin: '0 0 8px' }}>{p.name}</h4>
-                      <p className="prose" style={{ fontSize: '15px', margin: '0 0 10px' }}>{p.desc}</p>
-                      <span className="filed"><b>Filed under:</b> {p.tags.join(' · ')}</span>
+                      <h4 className="article-title" style={{ fontSize: '18px', margin: '0 0 8px' }}>{t(p.nameKey)}</h4>
+                      <p className="prose" style={{ fontSize: '15px', margin: '0 0 10px' }}>{t(p.descKey)}</p>
+                      <span className="filed"><b>{t('current.filedUnder')}</b> {p.tags.join(' · ')}</span>
                     </div>
                   ))}
                 </div>
               </motion.div>
-            );
-          })}
+          ))}
         </motion.div>
       </div>
 
-      {/* dot indicators */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '16px' }}>
         {cards.map((_, i) => (
           <button

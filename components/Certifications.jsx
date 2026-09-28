@@ -1,10 +1,11 @@
 // components/Certifications.jsx
 'use client';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../lib/LanguageContext';
 
 const groups = [
   {
-    heading: 'Academic Record',
+    headingKey: 'cert.academicRecord',
     items: [
       { title: 'B.Tech CSE (IoT & Automation) — SASTRA University, Tanjore', meta: 'CGPA 7.71', date: 'Jul 2026' },
       { title: 'Class XII, CBSE — DAV Boys Hr. Sec. School, Gopalapuram', meta: '95%', date: '2022' },
@@ -12,7 +13,7 @@ const groups = [
     ]
   },
   {
-    heading: 'Certifications',
+    headingKey: 'cert.certifications',
     items: [
       { title: 'Deep Learning Onramp — MathWorks', date: 'Apr 2025', doc: '/docs/deep-learning-onramp.pdf' },
       { title: 'Machine Learning Onramp — MathWorks', date: 'Feb 2025', doc: '/docs/machine-learning-onramp.pdf' },
@@ -21,7 +22,7 @@ const groups = [
     ]
   },
   {
-    heading: 'Workshops',
+    headingKey: 'cert.workshops',
     items: [
       { title: 'AI with ML Workshop — IISc Bengaluru (EduFabrica)', date: 'Oct 2024', doc: '/docs/iisc-ai-ml-workshop.pdf' },
       { title: 'PCB Design Workshop', date: '', doc: '/docs/pcb-workshop.pdf' },
@@ -29,7 +30,7 @@ const groups = [
     ]
   },
   {
-    heading: 'Examinations',
+    headingKey: 'cert.examinations',
     items: [
       { title: 'GRE — Graduate Record Examination', meta: 'Verbal 151 · Quant 159 · AWA 3.5', date: 'May 18, 2026', doc: null },
       { title: 'IELTS — English Proficiency', meta: 'Score report', date: '', doc: '/docs/ielts-english.pdf' },
@@ -39,13 +40,13 @@ const groups = [
   }
 ];
 
-function Record({ it }) {
+function Record({ it, t }) {
   const inner = (
     <>
       <div className="r-title">{it.title}</div>
       <div className="r-meta">
         <span className="r-date">{[it.meta, it.date].filter(Boolean).join(' · ')}</span>
-        {it.doc && <span className="r-view">View →</span>}
+        {it.doc && <span className="r-view">{t('cert.view')}</span>}
       </div>
     </>
   );
@@ -57,11 +58,13 @@ function Record({ it }) {
 }
 
 export default function Certifications() {
+  const { t } = useLanguage();
+
   return (
     <section id="certifications" className="section-space">
       <div className="section-head">
-        <span className="section-label">On the Record</span>
-        <span className="section-sub">— Proof of files and other acquired skills</span>
+        <span className="section-label">{t('cert.label')}</span>
+        <span className="section-sub">{t('cert.subtitle')}</span>
       </div>
       <hr className="rule-thin" style={{ marginBottom: '18px' }} />
 
@@ -75,9 +78,9 @@ export default function Certifications() {
             transition={{ duration: 0.45, delay: gi * 0.05 }}
             className="record-group"
           >
-            <h4>{g.heading}</h4>
+            <h4>{t(g.headingKey)}</h4>
             {g.items.map((it, ii) => (
-              <Record it={it} key={ii} />
+              <Record it={it} key={ii} t={t} />
             ))}
           </motion.div>
         ))}
