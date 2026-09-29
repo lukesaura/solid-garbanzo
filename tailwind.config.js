@@ -17,7 +17,8 @@ module.exports = {
         rule: '#1a1712'        // rule/border color
       },
       fontFamily: {
-        masthead: ['var(--font-masthead)', 'Pirata One', 'serif'],
+        masthead: ['var(--font-nameplate)', 'Georgia', 'serif'],
+        'tamil-nameplate': ['var(--font-tamil-nameplate)', 'var(--font-tamil)', 'serif'],
         headline: ['var(--font-headline)', 'Georgia', 'Times New Roman', 'serif'],
         body: ['var(--font-body)', 'Georgia', 'Times New Roman', 'serif'],
         news: ['var(--font-mono-news)', 'Courier New', 'monospace']

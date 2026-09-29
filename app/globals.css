@@ -1,10 +1,12 @@
 /* app/globals.css
    THE SHRINIKHEATHAN TIMES — a gothic broadsheet design system.
    Fonts loaded via next/font in app/layout.jsx:
-     --font-masthead : UnifrakturMaguntia (blackletter nameplate)
-     --font-headline : Gothik Steel       (newspaper section headlines)
-     --font-body     : EB Garamond        (old-world body copy)
-     --font-mono-news: Special Elite      (typewriter labels/tags)
+     --font-nameplate      : Gothik Steel    (masthead title only)
+     --font-tamil-nameplate: Anek Tamil      (Tamil masthead display)
+     --font-headline       : Cinzel          (section labels, article titles, decks)
+     --font-body           : EB Garamond     (old-world body copy)
+     --font-tamil          : Noto Serif Tamil (Tamil body & section headlines)
+     --font-mono-news      : Special Elite   (typewriter labels/tags)
 */
 
 @tailwind base;
@@ -42,9 +44,9 @@ body {
   font-family: var(--font-tamil), var(--font-body), Georgia, serif;
 }
 [data-lang="ta"] .nameplate,
-[data-lang="ta"] .font-masthead {
-  font-family: var(--font-tamil), serif;
-  font-weight: 900;
+[data-lang="ta"] .font-nameplate {
+  font-family: var(--font-tamil-nameplate), var(--font-tamil), serif;
+  font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
@@ -187,7 +189,7 @@ body::after {
 }
 
 .nameplate {
-  font-family: var(--font-masthead), serif;
+  font-family: var(--font-nameplate), serif;
   font-weight: 400;
   text-align: center;
   line-height: 0.95;
@@ -423,8 +425,12 @@ body::after {
 .cell:hover,
 .cell:hover .article-title,
 .cell:hover .kicker,
-.cell:hover .read-more {
-  text-decoration: none;
+.cell:hover .read-more,
+a.cell,
+a.cell:hover,
+a.cell *,
+a.cell:hover * {
+  text-decoration: none !important;
 }
 
 /* ---------- Links in body ---------- */
