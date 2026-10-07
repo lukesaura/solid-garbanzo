@@ -16,6 +16,21 @@ const tickerKeys = [
   ['IoT:', 'ticker.iot'],
 ];
 
+const resumeByLang = {
+  en: '/ResumeEN.pdf',
+  fr: '/ResumeFR.pdf',
+  de: '/ResumeDE.pdf',
+  it: '/ResumeIT.pdf',
+  ta: '/ResumeEN.pdf',
+};
+
+const resumeLangLinks = [
+  { code: 'en', label: 'English' },
+  { code: 'fr', label: 'Français' },
+  { code: 'de', label: 'Deutsch' },
+  { code: 'it', label: 'Italiano' },
+];
+
 const languages = [
   { name: 'Tamil', levelKey: 'lang.native', pips: 5, doc: '/docs/tamil-certificate.pdf' },
   { name: 'English', levelKey: 'lang.professional', pips: 5, doc: '/docs/ielts-english.pdf' },
@@ -172,13 +187,35 @@ export default function Hero() {
 
           <div style={{ marginTop: '24px' }}>
             <a
-              href="/Shrinikheathan-Arunkumar-Resume.pdf"
+              href={resumeByLang[lang] || '/ResumeEN.pdf'}
               target="_blank"
               rel="noopener noreferrer"
               className="resume-cta"
             >
               {t('hero.resumeBtn')}
             </a>
+            <div style={{ marginTop: '10px', fontSize: '13px', fontFamily: 'var(--font-body), serif', color: 'var(--ink-2)' }}>
+              <span style={{ fontStyle: 'italic' }}>{t('hero.resumeLangs')}</span>
+              <span style={{ marginLeft: '6px' }}>
+                {resumeLangLinks
+                  .filter(rl => rl.code !== lang)
+                  .map((rl, i, arr) => (
+                    <span key={rl.code}>
+                      <a
+                        href={resumeByLang[rl.code]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: '3px' }}
+                      >
+                        {rl.label}
+                      </a>
+                      {i < arr.length - 1 ? <span style={{ margin: '0 4px' }}>·</span> : ''}
+                    </span>
+                  ))}
+                <span style={{ margin: '0 4px' }}>·</span>
+                <span style={{ opacity: 0.55, fontStyle: 'italic' }}>{t('hero.resumeTamilWip')}</span>
+              </span>
+            </div>
           </div>
         </motion.article>
 
